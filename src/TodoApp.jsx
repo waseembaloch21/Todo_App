@@ -115,43 +115,47 @@ function TodoApp() {
 
   return (
     <div className="todo-container">
-      <h2>Todo List</h2>
+      <h2 className='container mx-auto flex justify-center'>Todo List</h2>
 
       {/* Input Form */}
       <div className="input-group">
         <input
           type="text"
+          className='inp'
           value={todo}
           placeholder="Enter a todo"
           onChange={e => setTodo(e.target.value)}
         />
         <input
+        className='inp'
           type="date"
           value={dueDate}
           onChange={e => setDueDate(e.target.value)}
         />
-        <select value={priority} onChange={e => setPriority(e.target.value)}>
+        <select className='inp' value={priority} onChange={e => setPriority(e.target.value)}>
           <option value="High">🔥 High</option>
           <option value="Medium">⚖️ Medium</option>
           <option value="Low">🌱 Low</option>
         </select>
-        <button onClick={handleAdd}>Add</button>
+        <button className='box inp' onClick={handleAdd}>Add Todo</button>
       </div>
 
       {/* Filters */}
       <div className="filters">
         <input
           type="text"
+          className='inp'
           placeholder="Search todos..."
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
         />
-        <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
+        <select className='inp' value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
           <option value="All">All</option>
           <option value="Done">Done</option>
           <option value="NotDone">Not Done</option>
         </select>
         <select
+        className='inp'
           value={filterPriority}
           onChange={e => setFilterPriority(e.target.value)}
         >
@@ -170,6 +174,7 @@ function TodoApp() {
               <>
                 <input
                   type="text"
+                  
                   value={editText}
                   onChange={e => setEditText(e.target.value)}
                 />
@@ -183,12 +188,12 @@ function TodoApp() {
                     📅 {t.dueDate || 'No date'} | 🏷️ {t.priority}
                   </div>
                 </div>
-                <div className="actions">
-                  <button onClick={() => toggleDone(t.id)}>
+                <div className="actions ">
+                  <button className='inp' onClick={() => toggleDone(t.id)}>
                     {t.done ? 'Undo' : 'Done'}
                   </button>
-                  <button onClick={() => handleEdit(t.id, t.text)}>Edit</button>
-                  <button onClick={() => handleDelete(t.id)}>Delete</button>
+                  <button className='inp' onClick={() => handleEdit(t.id, t.text)}>Edit</button>
+                  <button className='inp' onClick={() => handleDelete(t.id)}>Delete</button>
                 </div>
               </>
             )}

@@ -3,6 +3,9 @@
   margin: auto;
   padding: 20px;
 }
+.inp{
+  cursor: pointer;
+}
 
 .input-group,
 .filters {
@@ -29,6 +32,7 @@
 .todo-list li {
   background: #f9f9f9;
   margin-bottom: 10px;
+  background-color: aquamarine;
   padding: 12px;
   border-radius: 8px;
   display: flex;
@@ -49,4 +53,10 @@
 
 .actions button {
   margin-left: 8px;
+}
+
+.box {
+  background-color: aqua;
+  border: #f9f9f9;
+  font-family: serif;
 }

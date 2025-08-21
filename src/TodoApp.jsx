@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './TodoApp.css';
+import videoBg from './assets/bg-video.mp4'; // 👈 put your video in src/assets
 
 function TodoApp() {
   const [todos, setTodos] = useState([]);
@@ -114,92 +115,102 @@ function TodoApp() {
     .sort((a, b) => a.done - b.done);
 
   return (
-    <div className="todo-container">
-      <h2 className='container mx-auto flex justify-center'>Todo List</h2>
+    <div className="app">
+      {/* Background video */}
+      <video autoPlay loop muted playsInline className="background-video">
+        <source src={videoBg} type="video/mp4" />
+      </video>
 
-      {/* Input Form */}
-      <div className="input-group">
-        <input
-          type="text"
-          className='inp'
-          value={todo}
-          placeholder="Enter a todo"
-          onChange={e => setTodo(e.target.value)}
-        />
-        <input
-        className='inp'
-          type="date"
-          value={dueDate}
-          onChange={e => setDueDate(e.target.value)}
-        />
-        <select className='inp' value={priority} onChange={e => setPriority(e.target.value)}>
-          <option value="High">🔥 High</option>
-          <option value="Medium">⚖️ Medium</option>
-          <option value="Low">🌱 Low</option>
-        </select>
-        <button className='box inp' onClick={handleAdd}>Add Todo</button>
-      </div>
+      {/* Dark overlay */}
+      <div className="overlay"></div>
 
-      {/* Filters */}
-      <div className="filters">
-        <input
-          type="text"
-          className='inp'
-          placeholder="Search todos..."
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-        />
-        <select className='inp' value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
-          <option value="All">All</option>
-          <option value="Done">Done</option>
-          <option value="NotDone">Not Done</option>
-        </select>
-        <select
-        className='inp'
-          value={filterPriority}
-          onChange={e => setFilterPriority(e.target.value)}
-        >
-          <option value="All">All Priorities</option>
-          <option value="High">High</option>
-          <option value="Medium">Medium</option>
-          <option value="Low">Low</option>
-        </select>
-      </div>
+      {/* Todo Container */}
+      <div className="todo-container">
+        <h2 className='container mx-auto flex justify-center'>Todo List</h2>
 
-      {/* Todo List */}
-      <ul className="todo-list">
-        {filtered.map(t => (
-          <li key={t.id} className={t.done ? 'done' : ''}>
-            {isEditing === t.id ? (
-              <>
-                <input
-                  type="text"
-                  
-                  value={editText}
-                  onChange={e => setEditText(e.target.value)}
-                />
-                <button onClick={() => saveEdit(t.id)}>Save</button>
-              </>
-            ) : (
-              <>
-                <div>
-                  <strong>{t.text}</strong>
-                  <div className="meta">
-                    📅 {t.dueDate || 'No date'} | 🏷️ {t.priority}
+        {/* Input Form */}
+        <div className="input-group">
+          <input
+            type="text"
+            className='inp'
+            value={todo}
+            placeholder="Enter a todo"
+            onChange={e => setTodo(e.target.value)}
+          />
+          <input
+            className='inp'
+            type="date"
+            value={dueDate}
+            onChange={e => setDueDate(e.target.value)}
+          />
+          <select className='inp' value={priority} onChange={e => setPriority(e.target.value)}>
+            <option value="High">🔥 High</option>
+            <option value="Medium">⚖️ Medium</option>
+            <option value="Low">🌱 Low</option>
+          </select>
+          <button className='box inp' onClick={handleAdd}>Add Todo</button>
+        </div>
+
+        {/* Filters */}
+        <div className="filters">
+          <input
+            type="text"
+            className='inp'
+            placeholder="Search todos..."
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+          />
+          <select className='inp' value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
+            <option value="All">All</option>
+            <option value="Done">Done</option>
+            <option value="NotDone">Not Done</option>
+          </select>
+          <select
+            className='inp'
+            value={filterPriority}
+            onChange={e => setFilterPriority(e.target.value)}
+          >
+            <option value="All">All Priorities</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+
+        {/* Todo List */}
+        <ul className="todo-list">
+          {filtered.map(t => (
+            <li key={t.id} className={t.done ? 'done' : ''}>
+              {isEditing === t.id ? (
+                <>
+                  <input
+                    type="text"
+                    value={editText}
+                    onChange={e => setEditText(e.target.value)}
+                  />
+                  <button onClick={() => saveEdit(t.id)}>Save</button>
+                </>
+              ) : (
+                <>
+                  <div>
+                    <strong>{t.text}</strong>
+                    <div className="meta">
+                      📅 {t.dueDate || 'No date'} | 🏷️ {t.priority}
+                    </div>
                   </div>
-                </div>
-                <div className="actions ">
-                  <button className='inp' onClick={() => toggleDone(t.id)}>
-                    {t.done ? 'Undo' : 'Done'}
-                  </button>
-                  <button className='inp' onClick={() => handleEdit(t.id, t.text)}>Edit</button>
-                  <button className='inp' onClick={() => handleDelete(t.id)}>Delete</button>
-                </div>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
+                  <div className="actions">
+                    <button className='inp' onClick={() => toggleDone(t.id)}>
+                      {t.done ? 'Undo' : 'Done'}
+                    </button>
+                    <button className='inp' onClick={() => handleEdit(t.id, t.text)}>Edit</button>
+                    <button className='inp' onClick={() => handleDelete(t.id)}>Delete</button>
+                  </div>
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

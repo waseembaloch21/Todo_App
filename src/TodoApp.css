@@ -1,10 +1,47 @@
+/* Background Video + Overlay */
+.app {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ensures video covers screen */
+  z-index: -2;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6); /* dark transparent overlay */
+  z-index: -1;
+}
+
+/* Todo Container */
 .todo-container {
+  position: relative;
+  z-index: 1; /* keeps todo list above video */
   max-width: 600px;
   margin: auto;
   padding: 20px;
+  color: white; /* text visible on dark overlay */
 }
-.inp{
+
+/* Inputs */
+.inp {
   cursor: pointer;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
 }
 
 .input-group,
@@ -20,34 +57,34 @@
 .input-group button,
 .filters input,
 .filters select {
-  padding: 10px;
   flex: 1 1 150px;
 }
 
+/* Todo List */
 .todo-list {
   list-style: none;
   padding: 0;
 }
 
 .todo-list li {
-  background: #f9f9f9;
+  background: rgba(255, 255, 255, 0.1); /* transparent so video shows */
   margin-bottom: 10px;
-  background-color: aquamarine;
   padding: 12px;
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  backdrop-filter: blur(5px); /* glassmorphism effect */
 }
 
 .todo-list li.done {
   text-decoration: line-through;
-  color: #888;
+  color: #ddd;
 }
 
 .meta {
   font-size: 0.85em;
-  color: #555;
+  color: #ccc;
   margin-top: 5px;
 }
 
@@ -55,8 +92,16 @@
   margin-left: 8px;
 }
 
+/* Add button */
 .box {
-  background-color: aqua;
-  border: #f9f9f9;
-  font-family: serif;
+  background-color: #00e5ff;
+  color: black;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.box:hover {
+  background-color: #00bcd4;
+  color: white;
 }

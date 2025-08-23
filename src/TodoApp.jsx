@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './TodoApp.css';
-import videoBg from './assets/bg-video.mp4'; // 👈 put your video in src/assets
+import videoBg from './assets/bg-video.mp4'; 
 
 function TodoApp() {
   const [todos, setTodos] = useState([]);
@@ -16,7 +16,7 @@ function TodoApp() {
   const [isEditing, setIsEditing] = useState(null);
   const [editText, setEditText] = useState('');
 
-  // ✅ Load todos safely from localStorage
+ 
   useEffect(() => {
     try {
       const stored = localStorage.getItem('todos');
@@ -32,19 +32,19 @@ function TodoApp() {
     }
   }, []);
 
-  // ✅ Save todos to localStorage
+  
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  // ✅ Request Notification permission
+ 
   useEffect(() => {
     if ('Notification' in window && Notification.permission !== 'granted') {
       Notification.requestPermission();
     }
   }, []);
 
-  // ✅ Check for due dates every minute
+  
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
@@ -116,19 +116,19 @@ function TodoApp() {
 
   return (
     <div className="app">
-      {/* Background video */}
+      
       <video autoPlay loop muted playsInline className="background-video">
         <source src={videoBg} type="video/mp4" />
       </video>
 
-      {/* Dark overlay */}
+     
       <div className="overlay"></div>
 
-      {/* Todo Container */}
+      
       <div className="todo-container">
         <h2 className='container mx-auto flex justify-center'>Todo List</h2>
 
-        {/* Input Form */}
+       
         <div className="input-group">
           <input
             type="text"
@@ -151,7 +151,7 @@ function TodoApp() {
           <button className='box inp' onClick={handleAdd}>Add Todo</button>
         </div>
 
-        {/* Filters */}
+       
         <div className="filters">
           <input
             type="text"
@@ -177,7 +177,7 @@ function TodoApp() {
           </select>
         </div>
 
-        {/* Todo List */}
+       
         <ul className="todo-list">
           {filtered.map(t => (
             <li key={t.id} className={t.done ? 'done' : ''}>
